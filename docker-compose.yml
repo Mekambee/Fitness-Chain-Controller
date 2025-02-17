@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  fitness-db:
+    image: postgres:15
+    container_name: fitnesschain_db
+    restart: always
+    environment:
+      POSTGRES_USER: fitness_user
+      POSTGRES_PASSWORD: fitness_password
+      POSTGRES_DB: fitness_chain
+    ports:
+      - "5432:5432"
+    networks:
+      - fitness_network
+    volumes:
+      - fitness_db_data:/var/lib/postgresql/data
+
+  fitness-backend:
+    build: ./backend
+    container_name: fitnesschain_backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - fitness-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://fitness-db:5432/fitness_chain
+      SPRING_DATASOURCE_USERNAME: fitness_user
+      SPRING_DATASOURCE_PASSWORD: fitness_password
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_PROFILES_ACTIVE: dev
+    networks:
+      - fitness_network
+
+networks:
+  fitness_network:
+    driver: bridge
+
+volumes:
+  fitness_db_data:
+
+
+#   frontend:
+#     build: ./frontend
+#     container_name: nextjs_app
+#     ports:
+#       - "3000:3000"
+#     depends_on:
+#       - backend
