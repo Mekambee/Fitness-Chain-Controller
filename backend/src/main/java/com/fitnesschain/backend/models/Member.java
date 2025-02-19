@@ -1,6 +1,7 @@
 package com.fitnesschain.backend.models;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -48,6 +49,7 @@ public class Member {
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
+    @JsonManagedReference
     private List<Membership> memberships = new ArrayList<>();
 
     @OneToMany(
@@ -56,6 +58,7 @@ public class Member {
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
+    @JsonManagedReference
     private List<ClassEnrollment> classEnrollments = new ArrayList<>();
 
     @PrePersist

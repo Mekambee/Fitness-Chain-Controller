@@ -1,5 +1,6 @@
 package com.fitnesschain.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fitnesschain.backend.models.enums.MembershipType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -33,6 +34,7 @@ public class Membership {
 
     @ManyToOne
     @JoinColumn(name = "member_id")
+    @JsonBackReference
     private Member member;
 
 }

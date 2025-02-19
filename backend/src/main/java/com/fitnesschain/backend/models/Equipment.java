@@ -1,5 +1,6 @@
 package com.fitnesschain.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fitnesschain.backend.models.enums.EquipmentStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -34,6 +35,7 @@ public class Equipment {
 
     @ManyToOne
     @JoinColumn(name = "gym_id")
+    @JsonBackReference
     private Gym gym;
 
 }

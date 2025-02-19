@@ -1,6 +1,8 @@
 package com.fitnesschain.backend.models;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fitnesschain.backend.models.enums.ClassesType;
 import jakarta.persistence.*;
 import lombok.*;
@@ -30,10 +32,12 @@ public class GroupClass {
 
     @ManyToOne
     @JoinColumn(name = "trainer_id")
+    @JsonBackReference
     private Employee trainer;
 
     @ManyToOne
     @JoinColumn(name = "gym_id")
+    @JsonBackReference
     private Gym gym;
 
     @Column(name = "start_time", nullable = false)
@@ -51,6 +55,7 @@ public class GroupClass {
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
+    @JsonManagedReference
     private List<ClassEnrollment> enrollments = new ArrayList<>();
 
     public void addEnrollment(ClassEnrollment ce){

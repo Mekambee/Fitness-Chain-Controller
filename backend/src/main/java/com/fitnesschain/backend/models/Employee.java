@@ -1,5 +1,7 @@
 package com.fitnesschain.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fitnesschain.backend.models.enums.EmployeeType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -40,6 +42,7 @@ public class Employee {
 
     @ManyToOne
     @JoinColumn(name = "gym_id")
+    @JsonBackReference
     private Gym gym;
 
     @OneToMany(
@@ -48,6 +51,7 @@ public class Employee {
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
+    @JsonManagedReference
     private List<GroupClass> groupClassList = new ArrayList<>();
 
     public void addGroupClass(GroupClass gc){

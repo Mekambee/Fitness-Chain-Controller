@@ -1,6 +1,7 @@
 package com.fitnesschain.backend.models;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,10 +28,12 @@ public class ClassEnrollment {
 
     @ManyToOne
     @JoinColumn(name = "member_id")
+    @JsonBackReference
     private Member member;
 
     @ManyToOne
     @JoinColumn(name = "class_id")
+    @JsonBackReference
     private GroupClass groupClass;
 
 }
