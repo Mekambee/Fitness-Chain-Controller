@@ -1,12 +1,11 @@
 package com.fitnesschain.backend.services;
 
+import com.fitnesschain.backend.exceptions.InvalidTimeRangeException;
 import com.fitnesschain.backend.exceptions.ResourceNotFoundException;
 import com.fitnesschain.backend.models.Gym;
 import com.fitnesschain.backend.repositories.GymRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Duration;
 import java.util.List;
@@ -51,7 +50,7 @@ public class GymService {
         Duration duration = Duration.between(gym.getOpeningTime(), gym.getClosingTime());
         long hours = duration.toHours();
         if(hours < 6 || hours > 24){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Gym must be opened at least 6 hours, up to 24");
+            throw new InvalidTimeRangeException("Gym must be opened at least 6 hours, up to 24");
         }
     }
 }
