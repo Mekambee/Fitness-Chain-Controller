@@ -3,6 +3,7 @@ package com.fitnesschain.backend.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,16 +24,19 @@ public class ClassEnrollment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name ="enrollment_date", nullable = false)
+    @Column(name = "enrollment_date", nullable = false)
+    @NotNull(message = "Enrollment date cannot be null")
     private LocalDateTime enrollmentDate;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "member_id", nullable = false)
+    @NotNull(message = "Enrollment has to be referenced with member")
     @JsonBackReference
     private Member member;
 
     @ManyToOne
-    @JoinColumn(name = "class_id")
+    @JoinColumn(name = "class_id", nullable = false)
+    @NotNull(message = "Enrollment has to be referenced with class")
     @JsonBackReference
     private GroupClass groupClass;
 

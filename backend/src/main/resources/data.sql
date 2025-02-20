@@ -1,18 +1,18 @@
 INSERT INTO gyms (name, address, phone, email, opening_time, closing_time)
 VALUES
-    ('Gym Max', 'Main Street 123', '123-456-789', 'info@gymmax.com', '06:00:00', '22:00:00'),
-    ('Gym Active', 'Active Road 45', '111-222-333', 'contact@active.com', '07:00:00', '23:00:00'),
-    ('Gym Fit', 'Fit Avenue 12', '987-654-321', 'hello@gymfit.com', '06:00:00', '21:00:00'),
-    ('Gym Power', 'Power Street 99', '555-666-777', 'power@gym.com', '08:00:00', '20:00:00'),
-    ('Gym Elite', 'Elite Blvd 100', '888-999-000', 'elite@gym.com', '05:30:00', '22:30:00');
+    ('Gym Max', 'Main Street 123', '123456789', 'info@gymmax.com', '06:00:00', '22:00:00'),
+    ('Gym Active', 'Active Road 45', '111222333', 'contact@active.com', '07:00:00', '23:00:00'),
+    ('Gym Fit', 'Fit Avenue 12', '987654321', 'hello@gymfit.com', '06:00:00', '21:00:00'),
+    ('Gym Power', 'Power Street 99', '555666777', 'power@gym.com', '08:00:00', '20:00:00'),
+    ('Gym Elite', 'Elite Blvd 100', '888999000', 'elite@gym.com', '05:30:00', '22:30:00');
 
 INSERT INTO employees (first_name, last_name, email, phone, role, gym_id)
 VALUES
-    ('Adam', 'Kowalski', 'adam.k@fitness.com', '500-100-200', 'TRAINER', 1),
-    ('Ewa', 'Nowak', 'ewa.n@fitness.com', '500-300-400', 'MANAGER', 1),
-    ('Robert', 'Lew', 'robert.l@fitness.com', '600-111-222', 'TRAINER', 2),
-    ('Monika', 'Ziel', 'monika.z@fitness.com', '600-333-444', 'RECEPTIONIST', 3),
-    ('Kamila', 'Marek', 'kamila.m@fitness.com', '600-555-666', 'RECEPTIONIST', 5);
+    ('Adam', 'Kowalski', 'adam.k@fitness.com', '500100200', 'TRAINER', 1),
+    ('Ewa', 'Nowak', 'ewa.n@fitness.com', '500300400', 'MANAGER', 1),
+    ('Robert', 'Lew', 'robert.l@fitness.com', '600111222', 'TRAINER', 2),
+    ('Monika', 'Ziel', 'monika.z@fitness.com', '600333444', 'RECEPTIONIST', 3),
+    ('Kamila', 'Marek', 'kamila.m@fitness.com', '600555666', 'RECEPTIONIST', 5);
 
 INSERT INTO equipment (name, description, status, serial_number, gym_id)
 VALUES
@@ -32,11 +32,11 @@ VALUES
 
 INSERT INTO members (first_name, last_name, email, phone, date_of_birth, registration_date)
 VALUES
-    ('Jan', 'Testowy', 'jan.t@example.com', '700-111-222', '1990-03-10 00:00:00', '2023-01-10'),
-    ('Anna', 'Example', 'anna.e@example.com', '700-333-444', '1985-06-15 00:00:00', '2023-02-05'),
-    ('Piotr', 'Konieczny', 'piotr.k@example.com', '700-555-666', '2000-01-20 00:00:00', '2023-03-01'),
-    ('Kasia', 'Zawadzka', 'kasia.z@example.com', '700-777-888', '1995-08-25 00:00:00', '2023-03-10'),
-    ('Marek', 'Kowal', 'marek.k@example.com', '700-999-000', '1980-12-01 00:00:00', '2023-04-01');
+    ('Jan', 'Testowy', 'jan.t@example.com', '700111222', '1990-03-10 00:00:00', '2023-01-10'),
+    ('Anna', 'Example', 'anna.e@example.com', '700-333444', '1985-06-15 00:00:00', '2023-02-05'),
+    ('Piotr', 'Konieczny', 'piotr.k@example.com', '700555666', '2000-01-20 00:00:00', '2023-03-01'),
+    ('Kasia', 'Zawadzka', 'kasia.z@example.com', '700777888', '1995-08-25 00:00:00', '2023-03-10'),
+    ('Marek', 'Kowal', 'marek.k@example.com', '700999000', '1980-12-01 00:00:00', '2023-04-01');
 
 INSERT INTO memberships (type, start_date, end_date, member_id)
 VALUES

@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fitnesschain.backend.models.enums.ClassesType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalTime;
@@ -25,13 +28,16 @@ public class GroupClass {
 
     @Column(name = "classes_name", nullable = false)
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "Classes name cannot be empty")
     private ClassesType classesName;
 
     @Column(name = "description")
+    @Size(max = 255, message = "Group class description max characters number is 255")
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "trainer_id")
+    @JoinColumn(name = "trainer_id", nullable = false)
+    @NotNull(message = "Group class must be referenced with the trainer")
     @JsonBackReference
     private Employee trainer;
 
@@ -41,12 +47,16 @@ public class GroupClass {
     private Gym gym;
 
     @Column(name = "start_time", nullable = false)
+    @NotNull(message = "Start time cannot be null")
     private LocalTime startTime;
 
     @Column(name = "end_time", nullable = false)
+    @NotNull(message = "End time cannot be null")
     private LocalTime endTime;
 
     @Column(name = "capacity", nullable = false)
+    @NotNull(message = "Capacity cannot be empty")
+    @Size(min = 3, max = 50, message = "The classes should have at least 3 members capacity, with a max of 50")
     private Long capacity;
 
     @OneToMany(
