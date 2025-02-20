@@ -11,7 +11,7 @@ import com.fitnesschain.backend.services.GymService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -54,5 +54,16 @@ public class GymController {
     @ResponseStatus(HttpStatus.CREATED)
     public Gym createGym(@RequestBody @Valid Gym gym){
         return gymService.createGym(gym);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Gym> deleteGym(@PathVariable Long id){
+        gymService.deleteGym(id);
+        return ResponseEntity.noContent().build();
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Gym> updateGym(@PathVariable Long id, @RequestBody @Valid Gym updatedGymRequest){
+        updatedGymRequest.setId(id);
+        Gym updatedGym = gymService.updateGym(updatedGymRequest);
+        return ResponseEntity.ok(updatedGym);
     }
 }
