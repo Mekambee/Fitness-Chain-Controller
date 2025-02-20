@@ -1,5 +1,6 @@
 package com.fitnesschain.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -44,10 +45,12 @@ public class Gym {
 
     @Column(name="opening_time", nullable = false)
     @NotNull(message = "Opening time cannot be null")
+    @JsonFormat(pattern = "HH:mm:ss")
     private LocalTime openingTime;
 
     @Column(name="closing_time", nullable = false)
     @NotNull(message = "Closing time cannot be null")
+    @JsonFormat(pattern = "HH:mm:ss")
     private LocalTime closingTime;
 
     @OneToMany(
@@ -56,7 +59,7 @@ public class Gym {
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
-    @JsonManagedReference
+    @JsonManagedReference("gym-equipment")
     private List<Equipment> equipment = new ArrayList<>();
 
     @OneToMany(
@@ -65,7 +68,7 @@ public class Gym {
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
-    @JsonManagedReference
+    @JsonManagedReference("gym-employees")
     private List<Employee> employees = new ArrayList<>();
 
     @OneToMany(
@@ -74,7 +77,7 @@ public class Gym {
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
-    @JsonManagedReference
+    @JsonManagedReference("gym-classes")
     private List<GroupClass> groupClasses = new ArrayList<>();
 
     public void addEquipment(Equipment e){

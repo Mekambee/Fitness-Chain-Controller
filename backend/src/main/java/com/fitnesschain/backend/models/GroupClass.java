@@ -38,12 +38,12 @@ public class GroupClass {
     @ManyToOne
     @JoinColumn(name = "trainer_id", nullable = false)
     @NotNull(message = "Group class must be referenced with the trainer")
-    @JsonBackReference
+    @JsonBackReference("trainer-class")
     private Employee trainer;
 
     @ManyToOne
     @JoinColumn(name = "gym_id")
-    @JsonBackReference
+    @JsonBackReference("gym-classes")
     private Gym gym;
 
     @Column(name = "start_time", nullable = false)
@@ -65,7 +65,7 @@ public class GroupClass {
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
-    @JsonManagedReference
+    @JsonManagedReference("class-enrollment")
     private List<ClassEnrollment> enrollments = new ArrayList<>();
 
     public void addEnrollment(ClassEnrollment ce){

@@ -43,7 +43,7 @@ public class Equipment {
 
     @ManyToOne
     @JoinColumn(name = "gym_id")
-    @JsonBackReference
+    @JsonBackReference("gym-equipment")
     private Gym gym;
 
 }

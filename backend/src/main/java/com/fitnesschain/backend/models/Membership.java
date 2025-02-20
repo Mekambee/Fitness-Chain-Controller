@@ -41,7 +41,7 @@ public class Membership {
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
     @NotNull(message = "Membership must have member referenced")
-    @JsonBackReference
+    @JsonBackReference("member-membership")
     private Member member;
 
 }
