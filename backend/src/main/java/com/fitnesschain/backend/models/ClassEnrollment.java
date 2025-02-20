@@ -31,13 +31,13 @@ public class ClassEnrollment {
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
     @NotNull(message = "Enrollment has to be referenced with member")
-    @JsonBackReference
+    @JsonBackReference("member-enrollment")
     private Member member;
 
     @ManyToOne
     @JoinColumn(name = "class_id", nullable = false)
     @NotNull(message = "Enrollment has to be referenced with class")
-    @JsonBackReference
+    @JsonBackReference("class-enrollment")
     private GroupClass groupClass;
 
 }

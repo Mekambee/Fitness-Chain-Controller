@@ -62,7 +62,7 @@ public class Member {
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
-    @JsonManagedReference
+    @JsonManagedReference("member-membership")
     private List<Membership> memberships = new ArrayList<>();
 
     @OneToMany(
@@ -71,7 +71,7 @@ public class Member {
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
-    @JsonManagedReference
+    @JsonManagedReference("member-enrollment")
     private List<ClassEnrollment> classEnrollments = new ArrayList<>();
 
     @PrePersist

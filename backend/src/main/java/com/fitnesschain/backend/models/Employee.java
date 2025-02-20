@@ -54,7 +54,7 @@ public class Employee {
     @ManyToOne
     @JoinColumn(name = "gym_id", nullable = false)
     @NotNull(message = "Employee has to be referenced to specific gym")
-    @JsonBackReference
+    @JsonBackReference("gym-employees")
     private Gym gym;
 
     @OneToMany(
@@ -63,7 +63,7 @@ public class Employee {
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
-    @JsonManagedReference
+    @JsonManagedReference("trainer-class")
     private List<GroupClass> groupClassList = new ArrayList<>();
 
     public void addGroupClass(GroupClass gc){
