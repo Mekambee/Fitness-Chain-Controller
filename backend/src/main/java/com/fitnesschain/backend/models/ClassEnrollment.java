@@ -1,6 +1,5 @@
 package com.fitnesschain.backend.models;
 
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

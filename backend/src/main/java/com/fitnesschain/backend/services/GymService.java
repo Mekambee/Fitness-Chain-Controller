@@ -47,6 +47,9 @@ public class GymService {
     }
 
     private void validateOpeningAndClosingTime(Gym gym){
+        if (gym.getOpeningTime().isAfter(gym.getClosingTime())) {
+            throw new InvalidTimeRangeException("Opening time must be earlier than closing time.");
+        }
         Duration duration = Duration.between(gym.getOpeningTime(), gym.getClosingTime());
         long hours = duration.toHours();
         if(hours < 6 || hours > 24){
