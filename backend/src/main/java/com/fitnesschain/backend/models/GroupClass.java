@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fitnesschain.backend.models.enums.ClassesType;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.time.LocalTime;
@@ -56,7 +54,8 @@ public class GroupClass {
 
     @Column(name = "capacity", nullable = false)
     @NotNull(message = "Capacity cannot be empty")
-    @Size(min = 3, max = 50, message = "The classes should have at least 3 members capacity, with a max of 50")
+    @Min(value = 3, message = "The classes should have at least 3 members capacity, with a max of 50")
+    @Max(value = 50, message = "The classes should have at least 3 members capacity, with a max of 50")
     private Long capacity;
 
     @OneToMany(
