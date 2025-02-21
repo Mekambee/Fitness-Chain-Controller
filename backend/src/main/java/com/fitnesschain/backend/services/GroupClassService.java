@@ -39,6 +39,7 @@ public class GroupClassService {
         validateStartingAndEndingTime(fromRequest);
         GroupClass fromDB = retrieveGroupClassById(fromRequest.getId());
         fromDB.setClassesName(fromRequest.getClassesName());
+        fromDB.setGym(fromRequest.getGym());
         fromDB.setDescription(fromRequest.getDescription());
         fromDB.setTrainer(fromRequest.getTrainer());
         fromDB.setStartTime(fromRequest.getStartTime());
