@@ -1,11 +1,9 @@
 package com.fitnesschain.backend.services;
 
-
 import com.fitnesschain.backend.exceptions.InvalidTimeRangeException;
 import com.fitnesschain.backend.exceptions.ResourceNotFoundException;
 import com.fitnesschain.backend.models.Gym;
 import com.fitnesschain.backend.repositories.GymRepository;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -181,4 +179,93 @@ public class GymServiceTest {
                 .hasMessage("There is no gym with such ID");
     }
 
+
+    @Test
+    void whenDataIsValidAndGymExistsShouldUpdateGym(){
+        Gym existingGym = new Gym(
+                1L,
+                "Old Name",
+                "Old Address",
+                "123456789",
+                "old@email.com",
+                LocalTime.of(6, 0),
+                LocalTime.of(22, 0),
+                new ArrayList<>(), new ArrayList<>(), new ArrayList<>()
+        );
+
+        Gym updatedGym = new Gym(
+                1L,
+                "Updated Name",
+                "New Address",
+                "987654321",
+                "new@email.com",
+                LocalTime.of(7, 0),
+                LocalTime.of(21, 0),
+                new ArrayList<>(), new ArrayList<>(), new ArrayList<>()
+        );
+
+        when(gymRepository.findById(1L)).thenReturn(Optional.of(existingGym));
+        when(gymRepository.save(any(Gym.class))).thenAnswer(invocationOnMock -> invocationOnMock.getArgument(0));
+
+        Gym result = gymService.updateGym(updatedGym);
+
+        verify(gymRepository, times(1)).findById(1L);
+        verify(gymRepository).save(existingGym);
+
+        assertThat(result)
+                .isNotNull()
+                .hasFieldOrPropertyWithValue("id",1L)
+                .hasFieldOrPropertyWithValue("name","Updated Name")
+                .hasFieldOrPropertyWithValue("email","new@email.com")
+                .hasFieldOrPropertyWithValue("phone","987654321")
+                .hasFieldOrPropertyWithValue("address","New Address")
+                .hasFieldOrPropertyWithValue("openingTime",LocalTime.of(7, 0))
+                .hasFieldOrPropertyWithValue("closingTime",LocalTime.of(21, 0));
+
+    }
+
+    @Test
+    void nonExistingGymShouldNotBeUpdated(){
+        Gym updatedGym = new Gym();
+
+        updatedGym.setId(15L);
+        updatedGym.setOpeningTime(LocalTime.of(8, 0));
+        updatedGym.setClosingTime(LocalTime.of(18, 0));
+
+        when(gymRepository.findById(15L)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(()->gymService.updateGym(updatedGym))
+                .isInstanceOf(ResourceNotFoundException.class)
+                .hasMessage("There is no gym with such ID");
+
+        verify(gymRepository, never()).save(any());
+    }
+
+    @Test
+    void gymWithNotValidOpeningHoursShouldNotBeUpdated(){
+        Gym updatedGym = new Gym();
+
+        updatedGym.setOpeningTime(LocalTime.of(8, 0));
+        updatedGym.setClosingTime(LocalTime.of(9, 0));
+
+        assertThatThrownBy(()->gymService.updateGym(updatedGym))
+                .isInstanceOf(InvalidTimeRangeException.class)
+                .hasMessage("Gym must be opened at least 6 hours, up to 24");
+
+        verify(gymRepository, never()).save(any());
+    }
+
+    @Test
+    void gymWithEarlierClosingThanOpeningShouldNotBeValidated(){
+        Gym updatedGym = new Gym();
+
+        updatedGym.setOpeningTime(LocalTime.of(9, 0));
+        updatedGym.setClosingTime(LocalTime.of(8, 0));
+
+        assertThatThrownBy(()->gymService.updateGym(updatedGym))
+                .isInstanceOf(InvalidTimeRangeException.class)
+                .hasMessage("Opening time must be earlier than closing time.");
+
+        verify(gymRepository, never()).save(any());
+    }
 }
